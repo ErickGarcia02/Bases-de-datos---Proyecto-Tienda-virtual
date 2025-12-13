@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Alert,
 } from "react-native";
 import Input from "../components/Input";
 import { useState } from "react";
@@ -21,27 +22,25 @@ export default function LogInScreen({ navigation }: Props) {
   const [errores, setErrores] = useState<{ [key: string]: string }>({});
 
   const { login } = useAuth();
-  const { theme } = useTheme(); // 👈 usamos el theme
+  const { theme } = useTheme();
 
-  const handleLogIn = () => {
-    const { valido, errores } = validarLogIn({
-      email,
-      contraseña,
-    });
+  const handleLogIn = async () => {
+    const { valido, errores } = validarLogIn({ email, contraseña });
 
     if (!valido) {
       setErrores(errores);
       return;
-    } else {
-      try {
-        const allowed = login(email);
-
-        if (allowed) {
-          setEmail("");
-          setContraseña("");
-        }
-      } catch (error) {}
     }
+
+    const ok = await login(email.trim(), contraseña);
+
+    if (!ok) {
+      Alert.alert("Error", "Correo o contraseña incorrectos.");
+      return;
+    }
+
+    setEmail("");
+    setContraseña("");
   };
 
   const handleNavigateToRegister = () => {
@@ -49,17 +48,13 @@ export default function LogInScreen({ navigation }: Props) {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.background }, // 👈 fondo según tema
-      ]}
-    >
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Image
         source={require("../../assets/logo.png")}
         resizeMode="contain"
         style={styles.logo}
       />
+
       <Text style={[styles.textIniciarSesion, { color: theme.text }]}>
         Iniciar sesión
       </Text>
@@ -73,9 +68,7 @@ export default function LogInScreen({ navigation }: Props) {
         placeholder={"Correo"}
         onChange={setEmail}
       />
-      {errores.email && (
-        <Text style={styles.errorText}>{errores.email}</Text>
-      )}
+      {errores.email && <Text style={styles.errorText}>{errores.email}</Text>}
 
       <Text style={[styles.textlabel, { color: theme.text }]}>
         Ingresa tu contraseña
@@ -90,10 +83,7 @@ export default function LogInScreen({ navigation }: Props) {
         <Text style={styles.errorText}>{errores.contraseña}</Text>
       )}
 
-      <TouchableOpacity
-        style={styles.botonIniciarSesion}
-        onPress={handleLogIn}
-      >
+      <TouchableOpacity style={styles.botonIniciarSesion} onPress={handleLogIn}>
         <Text style={styles.textIniciarSesionlabel}>Ingresar</Text>
       </TouchableOpacity>
 
@@ -126,11 +116,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: "Poppins_400Regular",
   },
-  textlabel: {
-    fontSize: 20,
-    padding: 10,
-    fontFamily: "Poppins_400Regular",
-  },
+  textlabel: { fontSize: 20, padding: 10, fontFamily: "Poppins_400Regular" },
   botonIniciarSesion: {
     borderRadius: 10,
     borderColor: "#050044ff",
@@ -155,20 +141,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fcfa82ff",
     elevation: 2,
   },
-  textRegistro: {
-    fontWeight: "bold",
-    fontFamily: "Poppins_400Regular",
-  },
+  textRegistro: { fontWeight: "bold", fontFamily: "Poppins_400Regular" },
   textRegistroLabel: {
     fontWeight: "bold",
     fontSize: 17,
     fontFamily: "Poppins_400Regular",
   },
-  logo: {
-    height: 250,
-    width: 200,
-    padding: 0,
-  },
+  logo: { height: 250, width: 200, padding: 0 },
   errorText: {
     color: "#9b0c0cff",
     fontWeight: "bold",
