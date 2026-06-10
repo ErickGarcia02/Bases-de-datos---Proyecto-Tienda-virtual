@@ -23,7 +23,7 @@ import { supabase } from "../supabaseClient";
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
 export interface Usuario {
-  id: string; // ✅ uuid
+  id: string;
   created_at: string;
   nombre_completo: string;
   nombre_usuario: string;
