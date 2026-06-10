@@ -6,30 +6,31 @@
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.MyStore"
     },
+
     "web": {
       "favicon": "./assets/logo.png"
     },
+
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "@react-native-community/datetimepicker",
+      "expo-splash-screen",
+      "expo-status-bar"
     ],
+
     "extra": {
       "eas": {
         "projectId": "572410fd-2237-4015-a567-d89a15be8deb"
