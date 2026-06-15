@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../Screens/HomeScreen";
-import CategoriasScreen from "../Screens/CategoriasScreen";
 import CarritoScreen from "../Screens/CarritoScreen";
 import PedidosScreen from "../Screens/PedidosScreen";
 import PerfilStackNavigator from "./PerfilStackNavigator";
+import CategoriasStackNavigator from "./CategoriasStackNavigator";
+
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../Contexts/ThemeContext";
 
@@ -23,9 +24,13 @@ export default function TabsNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: theme.card },
+        headerStyle: {
+          backgroundColor: theme.card,
+        },
         headerTintColor: theme.text,
-        tabBarStyle: { backgroundColor: theme.card },
+        tabBarStyle: {
+          backgroundColor: theme.card,
+        },
         tabBarActiveTintColor: isDarkMode ? "#ffd166" : "#000000",
         tabBarInactiveTintColor: isDarkMode ? "#bbbbbb" : "#999999",
       }}
@@ -36,18 +41,27 @@ export default function TabsNavigator() {
         options={{
           title: "Inicio",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons
+              name="home-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
 
-      <Tab.Screen
-        name="Categorias"
-        component={CategoriasScreen}
+<Tab.Screen
+  name="Categorias"
+  component={CategoriasStackNavigator}
         options={{
-          title: "Categorias",
+          headerShown: false,
+          title: "Categorías",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="grid-outline" size={size} color={color} />
+            <Ionicons
+              name="grid-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -58,7 +72,11 @@ export default function TabsNavigator() {
         options={{
           title: "Carrito",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="cart-outline" size={size} color={color} />
+            <Ionicons
+              name="cart-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -69,7 +87,11 @@ export default function TabsNavigator() {
         options={{
           title: "Pedidos",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="receipt-outline" size={size} color={color} />
+            <Ionicons
+              name="receipt-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

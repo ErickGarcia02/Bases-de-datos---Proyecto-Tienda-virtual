@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from '../Screens/HomeScreen';
-import LogInScreen from '../Screens/LoginScreen';
-import RegisterScreen from '../Screens/RegisterScreen';
-import TabsNavigator from './TabsNavigator';
-import { useAuth } from '../Contexts/AuthContext';
 
+import LogInScreen from "../Screens/LoginScreen";
+import RegisterScreen from "../Screens/RegisterScreen";
+import TabsNavigator from "./TabsNavigator";
+
+import { useAuth } from "../Contexts/AuthContext";
 
 export type RootStackParamList = {
-    Login: undefined,
-    Tabs: {email:string},
-    Register: undefined,
-}
+  Login: undefined;
+  Tabs: undefined;
+  Register: undefined;
+};
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function StackNavigator() {
@@ -21,12 +22,22 @@ export default function StackNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user ? (
         <>
-          <Stack.Screen name="Tabs" component={TabsNavigator} />
+          <Stack.Screen
+            name="Tabs"
+            component={TabsNavigator}
+          />
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={LogInScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen
+            name="Login"
+            component={LogInScreen}
+          />
+
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+          />
         </>
       )}
     </Stack.Navigator>

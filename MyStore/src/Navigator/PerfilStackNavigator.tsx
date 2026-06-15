@@ -22,7 +22,7 @@ export default function PerfilStackNavigator() {
       initialRouteName="Perfil"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Perfil" component={PerfilScreen}  />
+      <Stack.Screen name="PerfilHome" component={PerfilScreen}  />
       <Stack.Screen name="Configuracion" component={PerfilConfiguracion} />
       <Stack.Screen name="Cuenta" component={PerfilCuenta} />
       <Stack.Screen name="Soporte" component={SoporteStackNavigator} />
